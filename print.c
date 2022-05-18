@@ -7,7 +7,7 @@
  */
 int _printf(const char *format, ...)
 {
-	va_list ap;
+	va_list list;
 	int count = -1;
 
 	pr_f ops[] = {
@@ -22,9 +22,9 @@ int _printf(const char *format, ...)
 
 	if (format != NULL)
 	{
-		va_start(ap, format);
-		count = _funcion(format, ops, ap);
-		va_end(ap);
+		va_start(list, format);
+		count = _funcion(format, ops, list);
+		va_end(list);
 	}
 	return (count);
 }
@@ -37,7 +37,7 @@ int _printf(const char *format, ...)
  * Return: number of chars printed
  */
 
-int _funcion(const char *format, pr_f ops[], va_list ap)
+int _funcion(const char *format, pr_f ops[], va_list list)
 {
 	int count = 0, i, j;
 
@@ -53,7 +53,7 @@ int _funcion(const char *format, pr_f ops[], va_list ap)
 			{
 				if (format[i + 1] == ops[j].op[0])
 				{
-					count = count + ops[j].f(ap);
+					count = count + ops[j].f(list);
 					break;
 				}
 			}
